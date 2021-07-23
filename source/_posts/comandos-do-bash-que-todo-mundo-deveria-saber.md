@@ -5,8 +5,9 @@ title: Comandos do bash que todo mundo deveria saber
 date: 2021-07-22
 description: Comandos do bash que todo mundo deveria saber
 cover_image: /assets/img/post-cover-image-2.png
-featured: true
+featured: false
 categories: [linux]
+published: true
 ---
 
 Comandos do bash que todo mundo deveria saber .<!-- more -->

@@ -5,8 +5,9 @@ title: Iniciando
 date: 2021-07-21
 description: Iniciando com o Jigsaw o gerador de sites estaticos feito com PHP e muito amor
 cover_image: /assets/img/post-cover-image-2.png
-featured: true
+featured: false
 categories: [configuration]
+published: false
 ---
 
 Iniciando com o Jigsaw o gerador de sites estaticos feito com PHP e muito amor.<!-- more -->

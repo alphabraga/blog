@@ -5,8 +5,9 @@ title: Deixando seu terminal ainda melhor
 date: 2021-07-22
 description: Deixando seu terminal ainda melhor
 cover_image: /assets/img/post-cover-image-2.png
-featured: true
+featured: false
 categories: [linux]
+published: true
 ---
 
 Deixando seu terminal ainda melhor .<!-- more -->

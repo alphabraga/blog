@@ -7,6 +7,7 @@ description: Crie seu blog estatico com Jigsaw, Docker e Netlify
 cover_image: /assets/img/post-cover-image-2.png
 featured: true
 categories: [configuration]
+published: true
 ---
 
 Crie seu blog estatico com Jigsaw, Docker e Netlify .<!-- more -->
