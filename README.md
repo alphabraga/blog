@@ -8,6 +8,9 @@ Em seguida rodar o container baseado na imagem
 
     sudo docker run -p8000:8000 -v=$(pwd)/:/var/www/html/ -dit blog
 
+Entrar no container e rodar
+
+    composer update
 
 Entrar no container e rodar
 
