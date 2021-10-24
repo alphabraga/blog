@@ -38,6 +38,9 @@ Abaixo exemplo de um arquivo /etc/fstab
 
 ## Ferramentas e utilitários para manusear partições e arquivos do tipo swap
 
+O swap é uma area em disco que funciona como auxiliar para a mémoria do sistea. Se o seu sistema esta utilizando o swap de forma muito intensa provavelmente existe uma sobrecarga em seu sistema. Vale lembrar que o swap não é obrigatório.
+
+
 ### Criando uma area de swap com partição
 
 Primeiro deve ser criada uma partição com o `fdisk` do tipo swap. Depois devemos utilizar o `mkswap` apontando para a partição que acabamos de de criar e por fim ativar o `swap` com o comando `swapon`.
@@ -57,31 +60,109 @@ Caso seja necessario podemos desativar o swap com comando
 
 ### Criando swap com arquivo
 
+Primeiro criamos o arquivo com o comando dd:
+
+    $ dd if=/dev/zero of=/swapfile   bs=1024k count=1000
+
+Depois formatamos o swap com o mkswap
+
+    $ mkswap /swapfile
+
+Por fim adicionamos a area de swap com
+
+    $ swapon /swapfile
+
+Podemos verificar se o arquivo foi realmente adicionado com o comando
+
+    λ$ cat /proc/swaps
+    Filename                                Type            Size            Used            Priority
+    /dev/sda4                               partition       16777212        0               -2
+    /swapfile                               file            1023996         0               -3
+
+Podemos utilizar tambem o `free` ou o `swapon -s`
+
+
 ## Utilização de UUIDs para identificar e montar sistemas de arquivos
 
 UUIDS significa Universally unique identifier ele é hoje preferencialmente utilizado para montar seus dispositivos no fstab. Essa forma é mais robusta, pois mesmo que um disco seja adicionado ou removido o UUID não mudará. Para saber o UUID de um disco execute o comando `blkid`
 
 ## Entendendo o systemd mount units
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel euismod velit, egestas congue tortor. Nulla erat dui, elementum et erat vitae, consequat mattis ipsum. Vivamus a sapien urna. Pellentesque porta malesuada nibh, vitae efficitur erat pretium vitae. 
+É o systemctl que gerencia toda a montagem de discos no sistema. Ele inclusive lê as configurações do fstab alêm de possuir as proprias.
 
-## /etc/fstab
+Os arquivos de configuração podem ser salvos em `/etc/systemd/system` ou em `/lib/systemd/system`
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel euismod velit, egestas congue tortor. Nulla erat dui, elementum et erat vitae, consequat mattis ipsum. Vivamus a sapien urna. Pellentesque porta malesuada nibh, vitae efficitur erat pretium vitae. 
+O nome do arquivo deve ser o caminho absoluto do ponto de montagem. Se eu desejo que o ponto de montagem seja o diretorio `/opt/pasta/aqui` o arquivo deve ficar assim:
+
+    $ touch /etc/systemd/system/opt-pasta-aqui.mount
+
+O arquivo deve conter o seguinte:
+
+    [Unit]
+    Description= Meu novo disco
+
+    [Mount]
+    What=/dev/sdb1
+    Where=/opt/pasta/aqui
+    Type=ext4
+    Options=defaults
+
+    [Install]
+    WhantedBy=multi-user.target
+
+
+Para ler as configurações e montar o disco executamos
+
+    $ systemctl daemon-reload
+
+Em seguida 
+
+    $ systemctl start opt-pasta-aqui.mount
+
+E podemos nos certificar que esta montado usando o parametro status
+
+Para definir que a montagem ocorra durante a inicialização do sistema basta utilizar
+
+    $ systemctl enable /opt/teste/aqui.mount
+
 
 ## /etc/mtab
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel euismod velit, egestas congue tortor. Nulla erat dui, elementum et erat vitae, consequat mattis ipsum. Vivamus a sapien urna. Pellentesque porta malesuada nibh, vitae efficitur erat pretium vitae. 
+Lista as partições montadas no sistema
 
 ## /proc/mounts
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel euismod velit, egestas congue tortor. Nulla erat dui, elementum et erat vitae, consequat mattis ipsum. Vivamus a sapien urna. Pellentesque porta malesuada nibh, vitae efficitur erat pretium vitae. 
-
+Lista as partições montadas no sistema
 
 ## mount e umount
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel euismod velit, egestas congue tortor. Nulla erat dui, elementum et erat vitae, consequat mattis ipsum. Vivamus a sapien urna. Pellentesque porta malesuada nibh, vitae efficitur erat pretium vitae. 
+Digitando só
 
+    $ mount
+
+Todas as parições montadas no sistema são exibidas
+
+Que é o mesmo ouput dos comandos abaixo
+
+    $ cat /proc/mounts
+
+    $ cat /etc/mtab
+
+### Principais parametros
+
+Para definir o tipo de sistema de arquivos
+
+    $ mount -t ext4 /dev/sdb1 /opt/test
+
+Para montar por UUID
+
+    $ mount -U ADDA-AAD-AWDAW-DA-DA-WD /opt/test
+
+    $ mount UUID=ADDA-AAD-AWDAW-DA-DA-WD /opt/test
+
+Por label
+
+    $ mount LABEL=Minha Partição /opt/test
 
 ## blkid
 
@@ -111,7 +192,7 @@ Esse comando ativa o swap e com a opção -s ele lista os swaps ativos
     Filename				Type		Size	Used	Priority
     /swapfile                              	file    	2097148	130048	-2
 
-Esse é o mesma informação do arquivo /proc/swaps
+Esse é a mesma informação do arquivo /proc/swaps
 
     $ cat /proc/swaps
     Filename				Type		Size	Used	Priority
@@ -120,5 +201,5 @@ Esse é o mesma informação do arquivo /proc/swaps
 
 ## swapoff
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis vel euismod velit, egestas congue tortor. Nulla erat dui, elementum et erat vitae, consequat mattis ipsum. Vivamus a sapien urna. Pellentesque porta malesuada nibh, vitae efficitur erat pretium vitae. 
+Comando que remove um partição ou arquivo da area de swap reconhecida do sistema
 
