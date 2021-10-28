@@ -91,3 +91,5 @@ Esse comando retorna os dados do sistema. Com a opção -r temos a versão do ke
 ## install
 
 ## patch
+
+Ccomando que serve pra aplicar um patch apartir de um diff
