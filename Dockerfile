@@ -22,4 +22,6 @@ RUN curl -sS https://getcomposer.org/installer | \
 
 WORKDIR /var/www/html
 
+ENTRYPOINT tail -f /dev/null
+
 EXPOSE 8000
