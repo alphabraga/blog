@@ -1,9 +1,9 @@
 ---
 extends: _layouts.post
 section: content
-title: 205.1 Basic networking configuration​
+title: 205.1 Basic networking configuration
 date: 2021-11-03
-description: 205.1 Basic networking configuration​
+description: 205.1 Basic networking configuration
 cover_image: /assets/img/post-cover-image-2.png
 published: true
 ---
@@ -13,7 +13,7 @@ published: true
 
 ## ifconfig
 
-Comando para exibir informações sobre as interfaces de rede. Passando como parametro o nome da inteface vemos apenas informações sobre esse interface
+Comando para exibir informações sobre as interfaces de rede. Passando como parametro o nome da inteface vemos apenas informações sobre essa interface
 
 Exibe todas as inrtefaces rodando, ou seja, em estado up.
 
@@ -52,7 +52,7 @@ Para subir uma interface
     $ ifconfig enp1s0 up
 
 
-Para atribuir um IP. Como não passei uma mascara será atrinuita a mascara padrão de acordo com o ip
+Para atribuir um IP. Como não passei uma mascara será atribuida a mascara padrão de acordo com o ip
 
     $ ifconfig enp1s0 10.0.0.5 
 
