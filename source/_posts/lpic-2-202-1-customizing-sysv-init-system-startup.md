@@ -180,8 +180,6 @@ Já no **centos** existe o comando chkconfig
 
 
 
-
-
-
-
 ## init and telinit
+
+telinit serve para mudar o runlevel no SysV

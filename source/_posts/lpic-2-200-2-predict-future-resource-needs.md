@@ -10,12 +10,13 @@ published: true
 
 ## collectd
 
-Deamon que coleta informações da maquina, Coleta e salva mais coisas que o sar. SAlva em arquivos de log.
+Deamon que coleta informações da maquina, Coleta e salva mais coisas que o sar. Salva em arquivos de log.
+
+O collectd utiliza plugins para capturar informações de monitotamento do sistema.
 
 As configuração do collectd fica em /var/lib/collectd 
 
 rrd significa Round Robin database e são arquivos binários
-
 
 ## Use monitoring and measurement tools to monitor IT infrastructure usage.
 
